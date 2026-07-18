@@ -41,13 +41,25 @@
     justify-content: space-between;
     height: 76px;
   }
-  .logo { display: block; }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
   .logo img {
     display: block;
     height: 60px;
     width: 60px;
     border-radius: 12px;
     box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+  }
+  .logo span {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.45);
   }
   .nav-links { display: flex; gap: 28px; }
   .nav-links a {
@@ -71,11 +83,24 @@
 
   /* Hero */
   .hero {
+    position: relative;
     padding: 150px 0 90px;
-    background:
-      linear-gradient(to right, rgba(1,35,80,0.85), rgba(1,35,80,0.45)),
-      url("images/hero.jpg") center / cover no-repeat;
+    background: url("images/hero.jpg") center / cover no-repeat;
+    overflow: hidden;
   }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(1,35,80,0.75), rgba(1,35,80,0.25)),
+      url("images/hero.jpg") center / cover no-repeat;
+    filter: blur(10px);
+    transform: scale(1.05);
+    -webkit-mask-image: linear-gradient(to right, #000 35%, transparent 80%);
+    mask-image: linear-gradient(to right, #000 35%, transparent 80%);
+  }
+  .hero .container { position: relative; z-index: 1; }
   .hero h1 {
     font-size: clamp(32px, 5vw, 52px);
     font-weight: 800;
@@ -346,7 +371,7 @@
 
 <nav>
   <div class="container nav-inner">
-    <a href="#" class="logo"><img src="images/logo.png" alt="RMK Properties Bangalore" /></a>
+    <a href="#" class="logo"><img src="images/logo.png" alt="RMK Properties Bangalore" /><span>RMK Properties Bangalore</span></a>
     <div class="nav-links">
       <a href="#" class="active">Properties</a>
       <a href="https://www.instagram.com/rmk_properties_bangalore/" target="_blank" rel="noopener">Contact</a>
