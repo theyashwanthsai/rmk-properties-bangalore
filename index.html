@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RMK Properties Bangalore</title>
+<style>
+  :root {
+    --bg: #F8F3F0;
+    --card: #ffffff;
+    --ink: #14213a;
+    --muted: #6e7686;
+    --line: #e7e0da;
+    --accent: #014BAA;
+    --accent-dark: #013a85;
+    --cream: #F8F3F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: #ffffff; }
+  .nav-cta {
+    background: var(--cream);
+    color: var(--accent);
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .nav-cta:hover { opacity: 0.9; }
+
+  /* Hero */
+  .hero {
+    padding: 150px 0 90px;
+    background:
+      linear-gradient(to right, rgba(1,45,100,0.75), rgba(1,45,100,0.35)),
+      url("images/hero.jpg") center / cover no-repeat;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 720px;
+    color: #ffffff;
+  }
+
+  /* Listing header + filter bar */
+  .listing-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 56px 0 36px;
+  }
+  .listing-head h2 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .found { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+
+  .filterbar {
+    background: var(--card);
+    border-radius: 14px;
+    display: flex;
+    align-items: stretch;
+    padding: 8px;
+    gap: 0;
+    box-shadow: 0 8px 24px rgba(1,75,170,0.08);
+    border: 1px solid var(--line);
+  }
+  .filter-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6px 18px;
+    border-right: 1px solid var(--line);
+    min-width: 150px;
+  }
+  .filter-field:last-of-type { border-right: none; }
+  .filter-field label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .filter-field input, .filter-field select {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13.5px;
+    color: #4a5364;
+    font-family: inherit;
+    appearance: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  .filter-field input { cursor: text; }
+  .filter-field input::placeholder { color: #a8aeb9; }
+  .filter-btn {
+    align-self: center;
+    margin-left: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .filter-btn:hover { background: var(--accent-dark); }
+  .filter-btn svg { width: 13px; height: 13px; stroke: #ffffff; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    align-items: start;
+    padding-bottom: 72px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 14px rgba(20,33,58,0.05);
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(1,75,170,0.35);
+    box-shadow: 0 12px 28px rgba(1,75,170,0.12);
+  }
+
+  .card-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(140deg, #ece4de, #ddd4cc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .card-media .placeholder {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a89e94;
+  }
+  .card-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .chips {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 1;
+  }
+  .chip {
+    background: rgba(1,58,133,0.88);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 5px 11px;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-body { padding: 8px 18px 18px; }
+
+  .loc {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .loc svg { width: 12px; height: 12px; stroke: var(--accent); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  .card-body h3 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .price { font-size: 17px; font-weight: 800; color: var(--accent); }
+  .price small { font-size: 12px; font-weight: 500; color: var(--muted); }
+
+  .details-btn {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 9px 16px;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .details-btn::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform 0.2s;
+  }
+  .details-btn:hover { border-color: var(--accent); background: #fff; }
+  .card.open .details-btn::after { transform: rotate(-135deg); margin-top: 3px; }
+
+  .specs {
+    display: none;
+    list-style: none;
+    margin-top: 16px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  .card.open .specs { display: block; }
+  .specs li {
+    font-size: 13px;
+    color: #4a5364;
+    padding: 5px 0 5px 18px;
+    position: relative;
+  }
+  .specs li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .specs li strong { color: var(--ink); font-weight: 600; }
+
+  .no-results {
+    display: none;
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0 72px;
+    font-size: 14.5px;
+  }
+
+  footer {
+    background: var(--accent);
+    padding: 28px 0;
+    text-align: center;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.85);
+  }
+  footer b { color: #ffffff; }
+
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .filterbar { flex-wrap: wrap; }
+    .filter-field { min-width: 40%; flex: 1; }
+  }
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero { padding: 130px 0 80px; }
+    .filterbar { width: 100%; }
+    .filter-field { min-width: 100%; border-right: none; border-bottom: 1px solid var(--line); }
+    .filter-btn { width: 100%; justify-content: center; margin: 8px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="logo">RMK Properties</a>
+    <div class="nav-links">
+      <a href="#" class="active">Properties</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#listings" class="nav-cta">Explore All</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <h1>Your Trusted Partner in Bangalore Property Listings</h1>
+  </div>
+</header>
+
+<main id="listings">
+  <div class="container">
+
+    <div class="listing-head">
+      <div>
+        <h2>Property Listing</h2>
+        <div class="found" id="results-count">5 properties result found</div>
+      </div>
+
+      <form class="filterbar" onsubmit="applyFilter(); return false;">
+        <div class="filter-field">
+          <label>Keyword</label>
+          <input type="text" id="f-keyword" placeholder="Search anything" oninput="applyFilter()" />
+        </div>
+        <div class="filter-field">
+          <label>Type</label>
+          <select id="f-type" onchange="applyFilter()">
+            <option value="">All / Any</option>
+            <option value="rental-building">Rental Income Building</option>
+            <option value="flat">Flat / Apartment</option>
+            <option value="villa">Independent Villa</option>
+            <option value="pg">PG Business</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label>Area</label>
+          <input type="text" id="f-location" placeholder="Any location" oninput="applyFilter()" />
+        </div>
+        <button type="submit" class="filter-btn">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
+          Search
+        </button>
+      </form>
+    </div>
+
+    <div class="grid" id="grid">
+
+      <article class="card" data-type="rental-building"
+        data-text="reliable gardenia raichandra sarjapur electronic city rental income building 2bhk 3bhk bda west">
+        <div class="card-media">
+          <span class="placeholder">Photo coming soon</span>
+          <img src="images/reliable-gardenia.jpg" alt="Reliable Gardenia rental income building" onerror="this.style.display='none'" />
+          <div class="chips"><span class="chip">30 × 50 site</span><span class="chip">G+3.5</span></div>
+        </div>
+        <div class="card-body">
+          <div class="loc">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Near Raichandra, off Sarjapur Road
+          </div>
+          <h3>Reliable Gardenia</h3>
+          <div class="price-row">
+            <div class="price">₹1.6 L <small>rent / month</small></div>
+            <button type="button" class="details-btn" onclick="toggleCard(this)">View Details</button>
+          </div>
+          <ul class="specs">
+            <li><strong>Type:</strong> Rental income residential building, brand new</li>
+            <li><strong>Units:</strong> 5 × 2BHK + 1 × 3BHK, west facing</li>
+            <li><strong>Legal:</strong> BDA-approved layout</li>
+            <li><strong>Amenities:</strong> 10+</li>
+            <li><strong>Connectivity:</strong> Electronic City &amp; Sarjapur Road</li>
+            <li><strong>Suited for:</strong> End use &amp; investment</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" data-type="flat"
+        data-text="3bhk apartment flat resale bbmp a-khata oc cc kaveri nps cambridge dmart 1430">
+        <div class="card-media">
+          <span class="placeholder">Photo coming soon</span>
+          <img src="images/3bhk-flat.jpg" alt="3BHK resale apartment" onerror="this.style.display='none'" />
+          <div class="chips"><span class="chip">3BHK</span><span class="chip">1,430 sq ft</span></div>
+        </div>
+        <div class="card-body">
+          <div class="loc">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            NPS, Cambridge Intl School &amp; DMart within ~50 m
+          </div>
+          <h3>3BHK Apartment (Resale)</h3>
+          <div class="price-row">
+            <div class="price">1,430 <small>sq ft built-up</small></div>
+            <button type="button" class="details-btn" onclick="toggleCard(this)">View Details</button>
+          </div>
+          <ul class="specs">
+            <li><strong>Floor:</strong> 1st floor, north-facing door</li>
+            <li><strong>Project age:</strong> 12 years</li>
+            <li><strong>Legal:</strong> BBMP A-khata with OC &amp; CC</li>
+            <li><strong>Parking:</strong> 1 covered</li>
+            <li><strong>Water:</strong> Kaveri</li>
+            <li><strong>Amenities:</strong> Power backup, lift, security</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" data-type="villa"
+        data-text="astro green cascade gattahalli 4bhk villa independent east under construction september sarjapur electronic city">
+        <div class="card-media">
+          <span class="placeholder">Photo coming soon</span>
+          <img src="images/astro-green-cascade.jpg" alt="4BHK villa at Astro Green Cascade" onerror="this.style.display='none'" />
+          <div class="chips"><span class="chip">4BHK</span><span class="chip">1,350 sq ft</span></div>
+        </div>
+        <div class="card-body">
+          <div class="loc">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Gattahalli, near Sarjapur Main Road
+          </div>
+          <h3>Astro Green Cascade Villa</h3>
+          <div class="price-row">
+            <div class="price">4BHK <small>villa · Sept handover</small></div>
+            <button type="button" class="details-btn" onclick="toggleCard(this)">View Details</button>
+          </div>
+          <ul class="specs">
+            <li><strong>Type:</strong> Independent villa, east-facing door</li>
+            <li><strong>Status:</strong> Under construction, handover by September</li>
+            <li><strong>Distance:</strong> 10 min Sarjapur Main Rd · 15 min Electronic City</li>
+            <li><strong>Suited for:</strong> End use</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" data-type="rental-building"
+        data-text="iti layout hsr rental income building 1bhk 2bhk kaveri borewell lift north">
+        <div class="card-media">
+          <span class="placeholder">Photo coming soon</span>
+          <img src="images/iti-layout.jpg" alt="Rental income building at ITI Layout" onerror="this.style.display='none'" />
+          <div class="chips"><span class="chip">30 × 40 site</span><span class="chip">10 units</span></div>
+        </div>
+        <div class="card-body">
+          <div class="loc">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            ITI Layout, near HSR Layout
+          </div>
+          <h3>ITI Layout Building</h3>
+          <div class="price-row">
+            <div class="price">₹3 L <small>rent / month</small></div>
+            <button type="button" class="details-btn" onclick="toggleCard(this)">View Details</button>
+          </div>
+          <ul class="specs">
+            <li><strong>Type:</strong> Rental income building, north facing</li>
+            <li><strong>Age:</strong> 1 year</li>
+            <li><strong>Units:</strong> 5 × 1BHK + 5 × 2BHK</li>
+            <li><strong>Utilities:</strong> Lift, permanent electric meter</li>
+            <li><strong>Water:</strong> Kaveri + borewell</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" data-type="pg"
+        data-text="pg building electronic city phase 1 neeladri nagar operating 45 rooms a-khata e-khata tech parks">
+        <div class="card-media">
+          <span class="placeholder">Photo coming soon</span>
+          <img src="images/pg-electronic-city.jpg" alt="Operating PG building in Electronic City Phase 1" onerror="this.style.display='none'" />
+          <div class="chips"><span class="chip">45 rooms</span><span class="chip">6 floors</span></div>
+        </div>
+        <div class="card-body">
+          <div class="loc">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Neeladri Nagar, Electronic City Phase 1
+          </div>
+          <h3>PG Building, Electronic City</h3>
+          <div class="price-row">
+            <div class="price">₹5 L <small>rent / month</small></div>
+            <button type="button" class="details-btn" onclick="toggleCard(this)">View Details</button>
+          </div>
+          <ul class="specs">
+            <li><strong>Type:</strong> Running PG business on a 40 × 60 site</li>
+            <li><strong>Age:</strong> 6 months</li>
+            <li><strong>Legal:</strong> A-khata &amp; E-khata ready</li>
+            <li><strong>Utilities:</strong> Water &amp; electricity connected</li>
+            <li><strong>Status:</strong> Ready for registration</li>
+            <li><strong>Around:</strong> Tech parks &amp; residential communities</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="no-results" id="no-results">No properties match your search. Try a different keyword or filter.</div>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="container"><b>RMK Properties</b> · Bangalore</div>
+</footer>
+
+<script>
+function toggleCard(btn) {
+  btn.closest('.card').classList.toggle('open');
+}
+
+function applyFilter() {
+  var kw = document.getElementById('f-keyword').value.trim().toLowerCase();
+  var type = document.getElementById('f-type').value;
+  var loc = document.getElementById('f-location').value.trim().toLowerCase();
+  var cards = document.querySelectorAll('.card');
+  var shown = 0;
+  cards.forEach(function (card) {
+    var text = (card.getAttribute('data-text') + ' ' + card.textContent).toLowerCase();
+    var ok = (!kw || text.indexOf(kw) !== -1) &&
+             (!type || card.getAttribute('data-type') === type) &&
+             (!loc || text.indexOf(loc) !== -1);
+    card.style.display = ok ? '' : 'none';
+    if (ok) shown++;
+  });
+  document.getElementById('results-count').textContent =
+    shown + ' propert' + (shown === 1 ? 'y' : 'ies') + ' result found';
+  document.getElementById('no-results').style.display = shown ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>
